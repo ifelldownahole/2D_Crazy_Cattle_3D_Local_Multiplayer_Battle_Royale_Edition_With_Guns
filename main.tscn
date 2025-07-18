@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3of6byk3pd8q"]
+[gd_scene load_steps=4 format=3 uid="uid://c3of6byk3pd8q"]
 
 [ext_resource type="PackedScene" uid="uid://dbdj7seqgf357" path="res://test_sheep.tscn" id="1_cvkpd"]
+[ext_resource type="Script" uid="uid://eahh5ksk8s1h" path="res://game_manager.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://4odimvtma8eh" path="res://test_sheep2.gd" id="2_0xm2m"]
 
 [node name="main" type="Node"]
+script = ExtResource("1_h2yge")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
@@ -19,4 +21,40 @@ position = Vector2(561, 209)
 rotation = 3.14159
 script = ExtResource("2_0xm2m")
 
+[node name="multiplayerHUD" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 234.697
+offset_top = 242.554
+offset_right = 344.697
+offset_bottom = 277.554
+
+[node name="Panel" type="Panel" parent="multiplayerHUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = 33.0
+offset_right = 48.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="multiplayerHUD/Panel"]
+layout_mode = 0
+offset_right = 132.0
+offset_bottom = 66.0
+
+[node name="Host_Game" type="Button" parent="multiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Host Game"
+
+[node name="Join_Game" type="Button" parent="multiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Join Local Game"
+
 [connection signal="timeout" from="Timer" to="TestSheep" method="_on_timer_timeout"]
+[connection signal="pressed" from="multiplayerHUD/Panel/VBoxContainer/Host_Game" to="." method="become_host"]
+[connection signal="pressed" from="multiplayerHUD/Panel/VBoxContainer/Join_Game" to="." method="join_game"]

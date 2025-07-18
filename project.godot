@@ -10,10 +10,18 @@ config_version=5
 
 [application]
 
-config/name="M.I.C.L. test"
+config/name="main 2d cattle"
 run/main_scene="uid://c3of6byk3pd8q"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+MultiplayerManager="*res://multiplayer/multiplayer_manager.gd"
+
+[display]
+
+window/size/always_on_top=true
 
 [input]
 
