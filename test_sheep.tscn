@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbdj7seqgf357"]
+
+[ext_resource type="Script" uid="uid://butmhna68dhlp" path="res://test_sheep.gd" id="1_rp7o0"]
+[ext_resource type="Texture2D" uid="uid://bu41bigjqctmh" path="res://icon.svg" id="2_hts7h"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ualrq"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbjww"]
+size = Vector2(40, 40)
+
+[sub_resource type="Theme" id="Theme_ch6g0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imtug"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s21ec"]
+bg_color = Color(0, 1, 0, 1)
+
+[node name="TestSheep" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_ualrq")
+gravity_scale = 0.0
+linear_damp_mode = 1
+linear_damp = 1.0
+angular_damp_mode = 1
+angular_damp = 5.0
+script = ExtResource("1_rp7o0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3.8147e-06, 1.90735e-06)
+scale = Vector2(0.3125, 0.314453)
+texture = ExtResource("2_hts7h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rbjww")
+
+[node name="healthBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.0
+offset_top = 42.0
+offset_right = 88.0
+offset_bottom = 65.0
+grow_horizontal = 2
+theme = SubResource("Theme_ch6g0")
+theme_override_styles/background = SubResource("StyleBoxFlat_imtug")
+theme_override_styles/fill = SubResource("StyleBoxFlat_s21ec")
+step = 1.0
+fill_mode = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

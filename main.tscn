@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3of6byk3pd8q"]
+
+[ext_resource type="PackedScene" uid="uid://dbdj7seqgf357" path="res://test_sheep.tscn" id="1_cvkpd"]
+[ext_resource type="Script" uid="uid://4odimvtma8eh" path="res://test_sheep2.gd" id="2_0xm2m"]
+
+[node name="main" type="Node"]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="TestSheep" parent="." instance=ExtResource("1_cvkpd")]
+position = Vector2(576, 393)
+
+[node name="Camera2D" type="Camera2D" parent="TestSheep"]
+
+[node name="TestSheep2" parent="." instance=ExtResource("1_cvkpd")]
+position = Vector2(561, 209)
+rotation = 3.14159
+script = ExtResource("2_0xm2m")
+
+[connection signal="timeout" from="Timer" to="TestSheep" method="_on_timer_timeout"]
