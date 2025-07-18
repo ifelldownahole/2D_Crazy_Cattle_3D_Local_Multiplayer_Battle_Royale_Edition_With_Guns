@@ -1,25 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3of6byk3pd8q"]
+[gd_scene load_steps=3 format=3 uid="uid://c3of6byk3pd8q"]
 
-[ext_resource type="PackedScene" uid="uid://dbdj7seqgf357" path="res://test_sheep.tscn" id="1_cvkpd"]
-[ext_resource type="Script" uid="uid://eahh5ksk8s1h" path="res://game_manager.gd" id="1_h2yge"]
-[ext_resource type="Script" uid="uid://4odimvtma8eh" path="res://test_sheep2.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://eahh5ksk8s1h" path="res://scripts/game_manager.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dbdj7seqgf357" path="res://scenes/test_sheep.tscn" id="2_sugp2"]
 
 [node name="main" type="Node"]
-script = ExtResource("1_h2yge")
+script = ExtResource("1_0wfyh")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
-[node name="TestSheep" parent="." instance=ExtResource("1_cvkpd")]
+[node name="TestSheep" parent="." instance=ExtResource("2_sugp2")]
 position = Vector2(576, 393)
 
 [node name="Camera2D" type="Camera2D" parent="TestSheep"]
-
-[node name="TestSheep2" parent="." instance=ExtResource("1_cvkpd")]
-position = Vector2(561, 209)
-rotation = 3.14159
-script = ExtResource("2_0xm2m")
 
 [node name="multiplayerHUD" type="Control" parent="."]
 unique_name_in_owner = true
