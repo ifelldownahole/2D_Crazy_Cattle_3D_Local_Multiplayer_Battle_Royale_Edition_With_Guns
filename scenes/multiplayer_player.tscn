@@ -1,6 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3xyuaf21mha4"]
+[gd_scene load_steps=7 format=3 uid="uid://b6q6rub36jddy"]
 
 [ext_resource type="Script" uid="uid://btcaf5rwftbvv" path="res://scripts/multiplayer/multiplayer_controller.gd" id="1_47gve"]
+[ext_resource type="Texture2D" uid="uid://bu41bigjqctmh" path="res://assets/icon.svg" id="2_80evv"]
 
-[node name="MultiplayerPlayer" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80evv"]
+size = Vector2(40, 40)
+
+[sub_resource type="Theme" id="Theme_2d20i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k8tkd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlq18"]
+bg_color = Color(0, 1, 0, 1)
+
+[node name="MultiplayerPlayer" type="RigidBody2D"]
 script = ExtResource("1_47gve")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3.8147e-06, 1.90735e-06)
+scale = Vector2(0.3125, 0.314453)
+texture = ExtResource("2_80evv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_80evv")
+
+[node name="healthBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.0
+offset_top = 42.0
+offset_right = 88.0
+offset_bottom = 65.0
+grow_horizontal = 2
+theme = SubResource("Theme_2d20i")
+theme_override_styles/background = SubResource("StyleBoxFlat_k8tkd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jlq18")
+step = 1.0
+fill_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
