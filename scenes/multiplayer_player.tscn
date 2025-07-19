@@ -14,6 +14,8 @@ size = Vector2(40, 40)
 bg_color = Color(0, 1, 0, 1)
 
 [node name="MultiplayerPlayer" type="RigidBody2D"]
+angular_damp_mode = 1
+angular_damp = 5.0
 script = ExtResource("1_47gve")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

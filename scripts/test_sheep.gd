@@ -33,7 +33,7 @@ func _process(delta):
 	if Input.is_action_pressed(REVERSE):	
 		apply_force(Vector2.UP.rotated(rotation) * -ACCELERATION * delta)
 		
-func _on_body_entered(_TestSheep):
+func _on_body_entered(_something):
 	health -= linear_velocity.length()
 	if health < 0:
 		health = 0
