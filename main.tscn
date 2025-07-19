@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3of6byk3pd8q"]
+
+[ext_resource type="Script" uid="uid://bpe8scbmxhryr" path="res://main.gd" id="1_ccopk"]
+[ext_resource type="PackedScene" uid="uid://dbdj7seqgf357" path="res://test_sheep.tscn" id="1_cvkpd"]
+[ext_resource type="PackedScene" uid="uid://bt5nopxn4sydd" path="res://wall.tscn" id="1_lyvqi"]
+[ext_resource type="PackedScene" uid="uid://d3em5mq72j6a6" path="res://loot_box.tscn" id="4_1bvp3"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_ccopk")
+
+[node name="WallContainer" type="Node" parent="."]
+
+[node name="Wall" parent="WallContainer" instance=ExtResource("1_lyvqi")]
+position = Vector2(579, 12)
+scale = Vector2(1.5, 1)
+
+[node name="Wall2" parent="WallContainer" instance=ExtResource("1_lyvqi")]
+position = Vector2(17, 464)
+rotation = 1.5708
+
+[node name="Wall3" parent="WallContainer" instance=ExtResource("1_lyvqi")]
+position = Vector2(580, 629)
+scale = Vector2(1.5, 1)
+
+[node name="Wall4" parent="WallContainer" instance=ExtResource("1_lyvqi")]
+position = Vector2(1133, 468)
+rotation = 1.5708
+
+[node name="TestSheep1" parent="." instance=ExtResource("1_cvkpd")]
+position = Vector2(149, 562)
+
+[node name="TestSheep2" parent="." instance=ExtResource("1_cvkpd")]
+position = Vector2(1052, 93)
+rotation = 3.14159
+FORWARD = "ui_up"
+REVERSE = "ui_down"
+TURN_LEFT = "ui_left"
+TURN_RIGHT = "ui_right"
+SHOOT1 = "ui_left_click"
+SHOOT2 = "ui_right_click"
+SPAWN_POS = Vector2(1000, 100)
+SPAWN_DIRECTION = 1.0
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.5
+offset_right = 144.5
+offset_bottom = 69.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Crazy Cattle"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = 511.0
+offset_top = 284.0
+offset_right = 648.0
+offset_bottom = 327.0
+text = "Start"
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="LootBox" parent="." instance=ExtResource("4_1bvp3")]
+
+[connection signal="game_over" from="." to="TestSheep1" method="_on_main_game_over"]
+[connection signal="game_over" from="." to="TestSheep2" method="_on_main_game_over"]
+[connection signal="reset" from="." to="TestSheep1" method="_on_main_reset"]
+[connection signal="reset" from="." to="TestSheep2" method="_on_main_reset"]
+[connection signal="reset" from="." to="LootBox" method="_on_main_reset"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="collected" from="LootBox" to="TestSheep1" method="_on_loot_box_collected"]
+[connection signal="collected" from="LootBox" to="TestSheep2" method="_on_loot_box_collected"]

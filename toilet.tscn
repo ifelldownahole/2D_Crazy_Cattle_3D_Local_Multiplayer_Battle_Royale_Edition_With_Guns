@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dt7h6rrvugurr"]
+
+[ext_resource type="Script" uid="uid://cxg1basdc87cs" path="res://toilet.gd" id="1_ywylc"]
+[ext_resource type="PackedScene" uid="uid://bgstykv260k42" path="res://poison_gas.tscn" id="2_dmv4x"]
+[ext_resource type="Texture2D" uid="uid://ddrurlh6ismc4" path="res://bin_chicken.png" id="3_6rurb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayuo3"]
+size = Vector2(22, 28)
+
+[node name="Toilet" type="RigidBody2D"]
+collision_layer = 2
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_ywylc")
+poison_gas_scene = ExtResource("2_dmv4x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_6rurb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ayuo3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

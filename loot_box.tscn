@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3em5mq72j6a6"]
+
+[ext_resource type="Texture2D" uid="uid://bfb4no3vdg3l6" path="res://image.png" id="1_4u4mi"]
+[ext_resource type="Script" uid="uid://dpqo6p4vr8syf" path="res://loot_box.gd" id="1_x5khv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x5khv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfucb"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0r8a5"]
+size = Vector2(302, 164)
+
+[node name="LootBox" type="Area2D"]
+script = ExtResource("1_x5khv")
+metadata/_edit_group_ = true
+
+[node name="SpawningBar" type="ProgressBar" parent="."]
+offset_left = -60.0
+offset_top = -32.0
+offset_right = 60.0
+offset_bottom = 32.0
+theme_override_styles/background = SubResource("StyleBoxFlat_x5khv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gfucb")
+max_value = 10.0
+step = 1.0
+show_percentage = false
+
+[node name="SpawningTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_4u4mi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.4, 0.4)
+shape = SubResource("RectangleShape2D_0r8a5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

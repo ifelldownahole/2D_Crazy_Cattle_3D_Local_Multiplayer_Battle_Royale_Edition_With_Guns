@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dprowtvgpk3p4"]
+
+[ext_resource type="Script" uid="uid://jos3tjswjtak" path="res://sheep.gd" id="1_2m2io"]
+[ext_resource type="Texture2D" uid="uid://b7loi1m6p3siw" path="res://icon.svg" id="2_tsfwe"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m3jlo"]
+bounce = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwmex"]
+size = Vector2(40, 40)
+
+[node name="sheep" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_m3jlo")
+gravity_scale = 0.0
+script = ExtResource("1_2m2io")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-6.91414e-06, -0.124998)
+scale = Vector2(0.3125, 0.314453)
+texture = ExtResource("2_tsfwe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dwmex")

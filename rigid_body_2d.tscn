@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyihtf1w4xry1"]
+
+[ext_resource type="Script" uid="uid://b1ivfnkqnegh4" path="res://rigid_body_2d.gd" id="1_edh3q"]
+[ext_resource type="Texture2D" uid="uid://b7loi1m6p3siw" path="res://icon.svg" id="2_858ay"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r5mdo"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tm320"]
+size = Vector2(40, 40)
+
+[node name="RigidBody2D" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_r5mdo")
+gravity_scale = 0.0
+script = ExtResource("1_edh3q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-6.91414e-06, -0.124998)
+scale = Vector2(0.3125, 0.314453)
+texture = ExtResource("2_858ay")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tm320")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,189 @@
+[gd_scene load_steps=17 format=3 uid="uid://dbdj7seqgf357"]
+
+[ext_resource type="Script" uid="uid://bj8plgs6knup7" path="res://test_sheep.gd" id="1_rp7o0"]
+[ext_resource type="Texture2D" uid="uid://b7loi1m6p3siw" path="res://icon.svg" id="2_hts7h"]
+[ext_resource type="PackedScene" uid="uid://bwj3sycdcm5th" path="res://bullet.tscn" id="2_vvgfp"]
+[ext_resource type="PackedScene" uid="uid://dt7h6rrvugurr" path="res://toilet.tscn" id="3_wmycc"]
+[ext_resource type="Texture2D" uid="uid://ci10ecvb7buf" path="res://healing_particle.png" id="4_3wjql"]
+[ext_resource type="Texture2D" uid="uid://crh7a3050nrw7" path="res://nuke_explosion.jpeg" id="5_fq7yd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ualrq"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbjww"]
+size = Vector2(40, 40)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imtug"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s21ec"]
+bg_color = Color(0, 0.686275, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ii1he"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wjql"]
+bg_color = Color(0.823529, 0.431373, 0.188235, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ii1he"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 30.0
+emission_ring_inner_radius = 20.0
+emission_ring_cone_angle = 90.0
+angle_min = 1.07288e-05
+angle_max = 90.0
+inherit_velocity_ratio = 1.0
+spread = 180.0
+flatness = 1.0
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.03
+scale_max = 0.07
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fq7yd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmycc"]
+bg_color = Color(0.400381, 0.188506, 0.0508906, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05rqp"]
+size = Vector2(40, 40)
+
+[node name="TestSheep" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_ualrq")
+gravity_scale = 0.0
+linear_damp_mode = 1
+linear_damp = 1.0
+angular_damp_mode = 1
+angular_damp = 5.0
+script = ExtResource("1_rp7o0")
+bullet_scene = ExtResource("2_vvgfp")
+toilet_scene = ExtResource("3_wmycc")
+
+[node name="Sheep" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(3.8147e-06, 1.90735e-06)
+scale = Vector2(0.314, 0.314)
+texture = ExtResource("2_hts7h")
+
+[node name="SheepCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rbjww")
+
+[node name="healthBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.0
+offset_top = 42.0
+offset_right = 88.0
+offset_bottom = 65.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_imtug")
+theme_override_styles/fill = SubResource("StyleBoxFlat_s21ec")
+max_value = 1000.0
+step = 1.0
+value = 100.0
+fill_mode = 1
+
+[node name="ReloadBar1" type="ProgressBar" parent="."]
+z_index = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_ii1he")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3wjql")
+max_value = 0.5
+show_percentage = false
+
+[node name="ReloadBar2" type="ProgressBar" parent="."]
+z_index = 1
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ii1he")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3wjql")
+max_value = 0.5
+show_percentage = false
+
+[node name="AmmoNumber1" type="Label" parent="."]
+z_index = 1
+offset_left = -88.0
+offset_top = 78.0
+offset_right = -1.0
+offset_bottom = 101.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmmoNumber2" type="Label" parent="."]
+z_index = 1
+offset_left = 1.0
+offset_top = 78.0
+offset_right = 88.0
+offset_bottom = 101.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReloadTimer1" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="ReloadTimer2" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="HealingParticles" type="GPUParticles2D" parent="."]
+z_index = 2
+emitting = false
+amount = 2
+texture = ExtResource("4_3wjql")
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_ii1he")
+
+[node name="AmmoBar1" type="ProgressBar" parent="."]
+offset_left = -88.0
+offset_top = 78.0
+offset_right = -1.0
+offset_bottom = 101.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fq7yd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wmycc")
+max_value = 3.0
+step = 1.0
+show_percentage = false
+
+[node name="AmmoBar2" type="ProgressBar" parent="."]
+offset_left = 1.0
+offset_top = 78.0
+offset_right = 88.0
+offset_bottom = 101.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fq7yd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wmycc")
+max_value = 3.0
+step = 1.0
+show_percentage = false
+
+[node name="NukeExplosion" type="Sprite2D" parent="."]
+position = Vector2(5.96046e-07, 2.02656e-06)
+scale = Vector2(0.138996, 0.185567)
+texture = ExtResource("5_fq7yd")
+
+[node name="SheepAreaCollision" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="AreaCollisonShape" type="CollisionShape2D" parent="SheepAreaCollision"]
+shape = SubResource("RectangleShape2D_05rqp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="SheepAreaCollision" to="." method="_on_area_entered"]
+[connection signal="area_exited" from="SheepAreaCollision" to="." method="_on_area_exited"]
