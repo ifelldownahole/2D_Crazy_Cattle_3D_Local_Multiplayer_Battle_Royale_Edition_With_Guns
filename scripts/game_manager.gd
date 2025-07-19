@@ -9,4 +9,3 @@ func join_game():
 	print("Join game pressed!")
 	%multiplayerHUD.hide()
 	MultiplayerManager.join_game()
-	

@@ -2,6 +2,7 @@ extends RigidBody2D
 var speed = 0
 var velocity = Vector2.ZERO
 var ANGULAR_SPEED = PI
+var thread = null # Assign the thread object to this variable
 @export var MAX_HEALTH = 500
 var health = MAX_HEALTH
 @export var TURN_SPEED_MULTIPLIER = 1200
@@ -15,6 +16,7 @@ func _ready():
 	set_contact_monitor(true)
 	set_max_contacts_reported(50)
 	$healthBar.max_value = health
+	thread = Thread.new() # Create a new thread object
 	print("iexistiguess")
 
 # test function for the thread
@@ -37,7 +39,7 @@ func _on_body_entered(_TestSheep):
 	health -= linear_velocity.length()
 	if health < 0:
 		health = 0
-	hit_physics(linear_velocity.length())
+	thread.start(hit_physics.bind(linear_velocity.length())) # Start the thread
 	
 func hit_physics(force):
 	var delay = force / 100
@@ -50,5 +52,11 @@ func hit_physics(force):
 	await get_tree().create_timer(delay).timeout
 	linear_damp = 1
 	angular_damp = 5
+	print(OS.get_thread_caller_id())
+	print(OS.get_main_thread_id())
+
+# Thread must be disposed (or "joined"), for portability.
+func _exit_tree():
+	thread.wait_to_finish()
 #func _on_timer_timeout():
 	#print(constant_force)

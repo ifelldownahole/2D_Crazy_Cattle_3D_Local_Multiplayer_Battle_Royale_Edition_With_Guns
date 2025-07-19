@@ -3,17 +3,17 @@
 [ext_resource type="Script" uid="uid://eahh5ksk8s1h" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dbdj7seqgf357" path="res://scenes/test_sheep.tscn" id="2_sugp2"]
 
-[node name="Game" type="Node"]
+[node name="main" type="Node"]
 script = ExtResource("1_0wfyh")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
-[node name="sheep" parent="." instance=ExtResource("2_sugp2")]
+[node name="TestSheep" parent="." instance=ExtResource("2_sugp2")]
 position = Vector2(576, 393)
 
-[node name="Camera2D" type="Camera2D" parent="sheep"]
+[node name="Camera2D" type="Camera2D" parent="TestSheep"]
 
 [node name="multiplayerHUD" type="Control" parent="."]
 unique_name_in_owner = true
@@ -49,13 +49,6 @@ text = "Host Game"
 layout_mode = 2
 text = "Join Local Game"
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://b6q6rub36jddy")
-spawn_path = NodePath("../Players")
-spawn_limit = 5
-
-[node name="Players" type="Node2D" parent="."]
-
-[connection signal="timeout" from="Timer" to="sheep" method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="TestSheep" method="_on_timer_timeout"]
 [connection signal="pressed" from="multiplayerHUD/Panel/VBoxContainer/Host_Game" to="." method="become_host"]
 [connection signal="pressed" from="multiplayerHUD/Panel/VBoxContainer/Join_Game" to="." method="join_game"]
